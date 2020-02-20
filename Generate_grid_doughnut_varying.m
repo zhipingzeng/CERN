@@ -20,7 +20,7 @@ PointNumber=l_x*l_y;
 R=zeros(PixelNumber,PixelNumber,PointNumber);
 target_doughnut=zeros(PixelNumber,PixelNumber,PointNumber);
 xxx=-1:0.01:1; %pixel size 10nm
-PSFX=gaussmf(xxx,[0.05 0]);   %fwhm=223.8nm for 0.095
+PSFX=gaussmf(xxx,[0.05 0]);  
 PSFXY=PSFX'*PSFX; 
 T=R;
 p=1;
@@ -34,30 +34,30 @@ for x=35:delta_x:340
     y=y2;
     y2=y_temp;
     delta_y=28;   %delta_y
-    r=8;%°ë¾¶  ÖĞĞÄ¿×9*20=180 nm
+    r=8;%åŠå¾„ 
 for j=1:l_y
     R(x,y+nn,p)=brightness;
         
-%     r=8;%°ë¾¶  ÖĞĞÄ¿×9*20=180 nm
-O=[x y+nn];%Ô²ĞÄ
-Bkground=zeros(ceil(2*r),ceil(2*r));%»­²¼
+%     r=8;%åŠå¾„  
+O=[x y+nn];%åœ†å¿ƒ
+Bkground=zeros(ceil(2*r),ceil(2*r));%ç”»å¸ƒ
 dat=1/r;
 for i=0:1:2*pi*r
-%»­Í¼,¼ÓÒ»ÊÇÒòÎªmatlabµÄ%Êı×é¾Í´Ó1¿ªÊ¼µÄ.Èça(1),Ã»ÓĞa(0)
+%ç”»å›¾,åŠ ä¸€æ˜¯å› ä¸ºmatlabçš„%æ•°ç»„å°±ä»1å¼€å§‹çš„.å¦‚a(1),æ²¡æœ‰a(0)
 Bkground(int32(r*cos(i*dat))+O(1)+1,int32(r*sin(i*dat))+O(2)+1)=1;
 end
 rr=zeros(17);
 [row3, col3] = find( Bkground > 0 );
 num3 = size(row3, 1);  
-for i = 1:1:num3                %¸Ä±ä±ê¼ÇÃÜ¶È
-    rr(row3(i), col3(i)) = 1;     % ·ÇÁãÔªËØÖÃÒ»
+for i = 1:1:num3                %æ”¹å˜æ ‡è®°å¯†åº¦
+    rr(row3(i), col3(i)) = 1;     % éé›¶å…ƒç´ ç½®ä¸€
     target_doughnut(row3(i), col3(i),p)=brightness;
 end
-doughnut=3*conv2(rr,PSFXY);  %Éú³Édoughnut
+doughnut=3*conv2(rr,PSFXY);  %ç”Ÿæˆdoughnut
 
 % figure(3),imshow(doughnut,[])
 center=30;
-rrr=zeros(num3);   %¶¨Òårrr´óĞ¡
+rrr=zeros(num3);   %å®šä¹‰rrrå¤§å°
 % figure,
 % imshow(Bkground);
 p=p+1;
@@ -80,13 +80,13 @@ imshow(Target,[])
 figure(2)
 imshow(T_doughnut,[])
 % imwrite(uint16(Target),'C:\Zhiping Zeng\FUZHOU UNIV 2\FADIM\New simulation\target-doughnut.tif')
-imwrite(uint16(T_doughnut),'C:\Zhiping Zeng\¸£Öİ´óÑ§\¸£Öİ´óÑ§\Fuzhou University\Publications\Fluctuation Assisted Difference Image Multiplication-FADIM\RawData-grid-7-ĞÂ\bSOFI-SRRF-new\target-doughnut.tif')
+imwrite(uint16(T_doughnut),'C:\Zhiping Zeng\ç¦å·å¤§å­¦\ç¦å·å¤§å­¦\Fuzhou University\Publications\Fluctuation Assisted Difference Image Multiplication-FADIM\RawData-grid-7-æ–°\bSOFI-SRRF-new\target-doughnut.tif')
 
 %%
 ZZ=zeros(PixelNumber,PixelNumber);
 doughnut_conv=zeros(PixelNumber,PixelNumber);
 % xx=-1:0.01:1; %pixel size 10nm
-% PSFX=gaussmf(xx,[0.095 0]);   %fwhm=223.8nm for 0.095
+% PSFX=gaussmf(xx,[0.095 0]);   
 % PSFXY=PSFX'*PSFX; 
 for i=1:PointNumber2
 T(:,:,i)=conv2(R(:,:,i),PSFXY,'same');
@@ -101,4 +101,4 @@ imshow(ZZ,[]);
 figure(4),
 imshow(doughnut_conv,[]);
 % imwrite(uint16(ZZ*128),'C:\Zhiping Zeng\FUZHOU UNIV 2\FADIM\New simulation\image-doughnut.tif')
-imwrite(uint16(doughnut_conv*128),'C:\Zhiping Zeng\¸£Öİ´óÑ§\¸£Öİ´óÑ§\Fuzhou University\Publications\Fluctuation Assisted Difference Image Multiplication-FADIM\RawData-grid-7-ĞÂ\bSOFI-SRRF-new\image-doughnut.tif')
+imwrite(uint16(doughnut_conv*128),'C:\Zhiping Zeng\ç¦å·å¤§å­¦\ç¦å·å¤§å­¦\Fuzhou University\Publications\Fluctuation Assisted Difference Image Multiplication-FADIM\RawData-grid-7-æ–°\bSOFI-SRRF-new\image-doughnut.tif')
